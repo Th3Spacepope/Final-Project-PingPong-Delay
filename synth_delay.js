@@ -32,6 +32,14 @@ const updateMasterGain = function () {
 const masterGain = mySynthCtx.createGain();
 masterGain.gain.value = 0.125; // Set master volume
 
+//create synth gain
+const synthGain = mySynthCtx.createGain();
+synthGain.gain.value = 0.5;
+
+//Split audio from synth
+const splitter = mySynthCtx.createChannelSplitter(2);
+newVoice.connect(splitter);
+
 //create delay channels
 let delayL = mySynthCtx.createDelay();
 delayL.delayTime.setValueAtTime(0.125, mySynthCtx.currentTime);
@@ -40,19 +48,24 @@ delayR.delayTime.setValueAtTime(0.125, mySynthCtx.currentTime);
 
 //create gain for delay
 const delayGainL = mySynthCtx.createGain();
+delayGainL.gain.setValueAtTime(0.125, mySynthCtx.currentTime);
 const delayGainR = mySynthCtx.createGain();
+delayGainR.gain.setValueAtTime(0.125, mySynthCtx.currentTime);
 
 //create feedback for delay
 let feedBackL = mySynthCtx.createGain();
 feedBackL.gain.setValueAtTime(0.0, mySynthCtx.currentTime);
 let feedBackR = mySynthCtx.createGain();
 feedBackR.gain.setValueAtTime(0.0, mySynthCtx.currentTime);
-//connect synth to delay gain
-delayL.connect(newVoice);
-delayR.connect(newVoice);
+
+//connect splitter to delay gains
+splitter.connect(delayGainL, 0, 0);
+splitter.connect(delayGainR, 0, 1);
+
 //connect feedback to delays
 feedBackL.connect(delayL);
 feedBackR.connect(delayR);
+
 //connect delays to master gain
 delayL.connect(masterGain);
 delayR.connect(masterGain);
