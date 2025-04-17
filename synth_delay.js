@@ -48,7 +48,8 @@ feedBackL.gain.setValueAtTime(0.0, mySynthCtx.currentTime);
 let feedBackR = mySynthCtx.createGain();
 feedBackR.gain.setValueAtTime(0.0, mySynthCtx.currentTime);
 //connect synth to delay gain
-
+delayL.connect(newVoice);
+delayR.connect(newVoice);
 //connect feedback to delays
 feedBackL.connect(delayL);
 feedBackR.connect(delayR);

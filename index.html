@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Ping Pong Delay</title>
     <script src="synth_delay.js" type="module"></script>
   </head>
   Master Fader
@@ -34,7 +34,7 @@
     <div>
       <label for="sustain">Sustain</label>
       <input id="sustain" type="range" min="1" max="100" value="50" />
-      <label id="sustainLabel" for="sustain">50</label>
+      <label id="sustainLabel" for="sustain">50%</label>
     </div>
     <div>
       <label for="release">Release</label>
@@ -44,5 +44,27 @@
   </body>
   <body>
     <div>Delay Parameters</div>
+    <div>
+      <label for="dGain">Delay Gain</label>
+      <input
+        id="dGain"
+        type="range"
+        min="-70.0"
+        max="6.0"
+        step=".1"
+        value="-12.0"
+      />
+      <label id="dGainLabel" for="dGain">-12.0 dBFS</label>
+    </div>
+    <div>
+      <label for="dTime">Delay Time</label>
+      <input id="dTime" type="range" min="10" max="2000" value="200" />
+      <label id="dTimeLable" for="dTime">200ms</label>
+    </div>
+    <div>
+      <label for="feedBack">Feedback</label>
+      <input id="feedBack" type="range" min="0" max="100" step="1" value="20" />
+      <label id="feedBackLabel" for="feedBack">20%</label>
+    </div>
   </body>
 </html>
