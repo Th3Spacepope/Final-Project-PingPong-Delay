@@ -13,15 +13,51 @@ const mySynthCtx = new AudioContext();
 const activeVoices = {};
 
 /**
+ * Converts a linear amplitude to dB scale.
+ * @param {number} linAmp - The linear amplitude value.
+ * @returns {number} The corresponding amplitude in dB.
+ */
+const dBtoA = function (linAmp) {
+  return Math.pow(10, linAmp / 20);
+};
+const updateMasterGain = function () {
+  let amp = dBtoA(fader.value);
+  masterGain.gain.exponentialRampToValueAtTime(amp, audCtx.currentTime + 0.01);
+  masterGainLabel.innerText = `${fader.value} dBFS`;
+};
+/**
  * @constant {GainNode} masterGain
  * @description Master gain control for the synth.
  */
 const masterGain = mySynthCtx.createGain();
 masterGain.gain.value = 0.125; // Set master volume
 
+//create delay channels
+let delayL = mySynthCtx.createDelay();
+delayL.delayTime.setValueAtTime(0.125, mySynthCtx.currentTime);
+let delayR = mySynthCtx.createDelay();
+delayR.delayTime.setValueAtTime(0.125, mySynthCtx.currentTime);
+
+//create gain for delay
+const delayGainL = mySynthCtx.createGain();
+const delayGainR = mySynthCtx.createGain();
+
+//create feedback for delay
+let feedBackL = mySynthCtx.createGain();
+feedBackL.gain.setValueAtTime(0.0, mySynthCtx.currentTime);
+let feedBackR = mySynthCtx.createGain();
+feedBackR.gain.setValueAtTime(0.0, mySynthCtx.currentTime);
+//connect synth to delay gain
+
+//connect feedback to delays
+feedBackL.connect(delayL);
+feedBackR.connect(delayR);
+//connect delays to master gain
+delayL.connect(masterGain);
+delayR.connect(masterGain);
+
 // Connect master gain to the audio output
 masterGain.connect(mySynthCtx.destination);
-
 /**
  * @function mtof
  * @description Converts a MIDI note number to its corresponding frequency in Hz.
@@ -84,6 +120,13 @@ const noteMap = {
   p: 75, // D#5 / Eb5
   ";": 76, // E5
 };
+
+// HTML elements
+let fader = document.getElementById("masterGain");
+let masterGainLabel = document.getElementById("masterGainLabel");
+
+// Listeners
+fader.addEventListener("input", updateMasterGain);
 
 /**
  * @event keydown

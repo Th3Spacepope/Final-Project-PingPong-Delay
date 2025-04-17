@@ -26,12 +26,9 @@ export default class Voice {
     //create ampEnv gainNode
     this.ampEnv = this.audio.createGain();
     this.ampEnv.gain.setValueAtTime(0, now);
-    //connect
     this.myOsc.connect(this.ampEnv);
-    //this.myOsc2.connect(this.ampEnv);
     this.ampEnv.connect(this.output);
     this.myOsc.start();
-    //this.myOsc2.start();
 
     //ADSR
     this.ampEnv.gain.linearRampToValueAtTime(1, now + this.attack);
@@ -60,3 +57,22 @@ export default class Voice {
     this.ampEnv = null;
   } //what should happen after we are down with a note
 }
+//change sliders for ADSR
+document.getElementById("attack").addEventListener("input", (event) => {
+  document.getElementById("attackLabel").innerText = `${event.target.value} ms`;
+  attack = this.attack;
+});
+document.getElementById("decay").addEventListener("input", (event) => {
+  document.getElementById("decayLabel").innerText = `${event.target.value} ms`;
+  decay = this.decay;
+});
+document.getElementById("sustain").addEventListener("input", (event) => {
+  document.getElementById("sustainLabel").innerText = `${event.target.value}`;
+  sustain = this.sustain;
+});
+document.getElementById("release").addEventListener("input", (event) => {
+  document.getElementById(
+    "releaseLabel"
+  ).innerText = `${event.target.value} ms`;
+  release = this.release;
+});
