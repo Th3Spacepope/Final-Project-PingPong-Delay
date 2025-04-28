@@ -51,9 +51,9 @@ synthFilter.Q.value = 1;
 //const merger = mySynthCtx.createChannelMerger(2);
 const wetMerger = mySynthCtx.createChannelMerger(2);
 const dryMerger = mySynthCtx.createChannelMerger(2);
-const wetMergeEnd = mySynthCtx.createChannelMerger(2);
-const dryMergeEnd = mySynthCtx.createChannelMerger(2);
-const split = mySynthCtx.createChannelSplitter(2);
+// const wetMergeEnd = mySynthCtx.createChannelMerger(2);
+// const dryMergeEnd = mySynthCtx.createChannelMerger(2);
+// const split = mySynthCtx.createChannelSplitter(2);
 //create delay channels
 let delayL = mySynthCtx.createDelay(179);
 let delayR = mySynthCtx.createDelay(179);
@@ -74,7 +74,7 @@ feedbackR.gain.value = 0.2;
 
 //create panner for wet/dry
 let mix = mySynthCtx.createStereoPanner();
-mix.pan.value = 0;
+//mix.pan.value = 0;
 
 // feedbackL.gain.setValueAtTime(0.5, mySynthCtx.currentTime);
 // feedbackR.gain.setValueAtTime(0.5, mySynthCtx.currentTime);
