@@ -326,8 +326,9 @@ const updateFilterCutoff = function () {
 };
 
 const updateResonance = function () {
-  synthFilter.Q.value = `${resonance.value}`;
-  resonanceLabel.innerText = `${resonance.value}`;
+  synthFilter.Q.value = convertRange(`${resonance.value}`, [0, 100], [0, 40]);
+  console.log(synthFilter.Q.value);
+  resonanceLabel.innerText = `${resonance.value}%`;
 };
 
 const updateFilterType = function () {
@@ -371,7 +372,7 @@ waveTypeSq.addEventListener("click", updateWaveType2);
 waveTypeTri.addEventListener("click", updateWaveType3);
 filterCut.addEventListener("input", updateFilterCutoff);
 resonance.addEventListener("input", updateResonance);
-filterType.addEventListener("click", updateFilterType);
+filterType.addEventListener("change", updateFilterType);
 /**
  * @event keydown
  * @description Listens for keydown events and starts a note if the key is mapped.
