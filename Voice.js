@@ -1,14 +1,16 @@
 export default class Voice {
-  constructor(ctx, frequency, output) {
+  constructor(ctx, frequency, output, adsr, type) {
     //things that need happen on initiialization
     this.audio = ctx;
     this.frequency = frequency;
     this.output = output;
     //set ADSR
-    this.attack = 1;
-    this.decay = 1;
-    this.sustain = 0.125;
-    this.release = 1;
+    this.attack = adsr[0];
+    this.decay = adsr[1];
+    this.sustain = adsr[2];
+    this.release = adsr[3];
+    //set wave
+    this.type = type;
   }
   start() {
     //things that need to happen to play a new note
@@ -17,7 +19,7 @@ export default class Voice {
     //create osc
     this.myOsc = this.audio.createOscillator();
     this.myOsc.frequency.setValueAtTime(this.frequency, now);
-    this.myOsc.type = "square";
+    this.myOsc.type = this.type;
 
     // this.myOsc2 = this.audio.createOscillator();
     // this.myOsc2.frequency.setValueAtTime(this.frequency / 2, now);
@@ -57,22 +59,3 @@ export default class Voice {
     this.ampEnv = null;
   } //what should happen after we are down with a note
 }
-//change sliders for ADSR
-document.getElementById("attack").addEventListener("input", (event) => {
-  document.getElementById("attackLabel").innerText = `${event.target.value} ms`;
-  attack = this.attack;
-});
-document.getElementById("decay").addEventListener("input", (event) => {
-  document.getElementById("decayLabel").innerText = `${event.target.value} ms`;
-  decay = this.decay;
-});
-document.getElementById("sustain").addEventListener("input", (event) => {
-  document.getElementById("sustainLabel").innerText = `${event.target.value}`;
-  sustain = this.sustain;
-});
-document.getElementById("release").addEventListener("input", (event) => {
-  document.getElementById(
-    "releaseLabel"
-  ).innerText = `${event.target.value} ms`;
-  release = this.release;
-});

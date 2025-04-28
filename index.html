@@ -6,7 +6,7 @@
     <title>Ping Pong Delay</title>
     <script src="synth_delay.js" type="module"></script>
   </head>
-  Master Fader
+  <h2>Master Fader</h2>
   <div>
     <label for="masterGain"></label>
     <input
@@ -19,13 +19,34 @@
     />
     <label id="MasterGainLabel" for="masterGain">-12.0 dBFS</label>
   </div>
+  <div>
+    <label for="wetDry">Wet/Dry</label>
+    <input id="wetDry" type="range" min="-100" max="100" step="1" value="0" />
+    <label id="wetDryLabel" for="wetDry">50%</label>
+  </div>
   <body>
-    Synth Parameters
+    <h2>Synth Parameters</h2>
     <div>
       <label for="synthGain">Synth Gain</label>
       <input id="synthGain" type="range" min="-70.0" max="6.0" value="-12.0" />
       <label id="synthGainLabel" for="synthGain">-12.0 dBFS</label>
     </div>
+    <h4>Wave Type</h4>
+    <div>
+      <input
+        id="sine"
+        type="radio"
+        name="wave"
+        value="sine"
+        checked="checked"
+      />
+      <label for="sine">Sine</label>
+      <input id="square" type="radio" name="wave" value="square" />
+      <label for="square">Square</label>
+      <input id="sawtooth" type="radio" name="wave" value="sawtooth" />
+      <label for="sawtooth">Sawtooth</label>
+    </div>
+    <h4>ADSR</h4>
     <div>
       <label for="attack">Attack</label>
       <input id="attack" type="range" min="1" max="1000" value="150" />
@@ -46,9 +67,26 @@
       <input id="release" type="range" min="1" max="1000" value="100" />
       <label id="releaseLabel" for="release">100ms</label>
     </div>
+    <h4>Filter</h4>
+    <div>
+      <select name="filterType" id="filterType">
+        <option value="lowpass">Lowpass</option>
+        <option value="highpass">Highpass</option>
+      </select>
+    </div>
+    <div>
+      <label for="filterCut">Cutoff</label>
+      <input id="filterCut" type="range" min="100" max="12000" value="12000" />
+      <label id="filterCutLabel" for="filterCut">12000Hz</label>
+    </div>
+    <div>
+      <label for="resonance">resonance</label>
+      <input id="resonance" type="range" min="1" max="100" value="1" />
+      <label id="resonanceLabel" for="resonance">1</label>
+    </div>
   </body>
   <body>
-    <div>Delay Parameters</div>
+    <h2>Delay Parameters</h2>
     <div>
       <label for="dGain">Delay Gain</label>
       <input
@@ -63,13 +101,25 @@
     </div>
     <div>
       <label for="dTime">Delay Time</label>
-      <input id="dTime" type="range" min="10" max="2000" value="200" />
+      <input id="dTime" type="range" min="10" max="1000" value="200" />
       <label id="dTimeLable" for="dTime">200ms</label>
     </div>
     <div>
       <label for="feedBack">Feedback</label>
-      <input id="feedBack" type="range" min="0" max="100" step="1" value="20" />
+      <input
+        id="feedBack"
+        type="range"
+        min="0.01"
+        max="100.00"
+        step="1"
+        value="20"
+      />
       <label id="feedBackLabel" for="feedBack">20%</label>
+    </div>
+    <div>
+      <label for="offset">Offset</label>
+      <input id="offset" type="range" min="0" max="200" step="1" value="0" />
+      <label id="offsetLabel" for="offset">0ms</label>
     </div>
   </body>
 </html>
